@@ -8,7 +8,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "firebase deploy"
+    "deploy": "clear && yarn build && firebase deploy"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
