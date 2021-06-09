@@ -4,8 +4,8 @@
 
 .firebase
 firebase-debug.log
-# firebase.json
-# .firebaserc
+firebase.json
+.firebaserc
 
 # dependencies
 /node_modules
