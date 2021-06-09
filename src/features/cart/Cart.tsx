@@ -13,7 +13,6 @@ import {
   ListItemText,
   ListItemAvatar,
   CardHeader,
-  CardContent,
   Typography,
 } from '@material-ui/core/'
 import {
@@ -28,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     padding: theme.spacing(),
   },
+  content:{
+    marginLeft: theme.spacing( 2 ),
+  },
   padded:{
-    margin: theme.spacing(),
+    margin: theme.spacing( 2 ),
   },
   shop:{
     marginTop: theme.spacing(),
-  },
-  totals: {
-    margin: theme.spacing( 2 ),
   },
 }))
 
@@ -44,8 +43,11 @@ export function Cart() {
   const classes = useStyles()
   const cart = useAppSelector(useCart)
   const { 
-    totalItems,
-    totalPense, 
+    totalPense,
+    apples,
+    freeApples,
+    oranges,
+    freeOranges,
   } = cart
   const readablePrice = `£${(Math.round(totalPense) / 100).toFixed(2)}`
   const dispatch = useAppDispatch()
@@ -54,7 +56,33 @@ export function Cart() {
           
           <Top />
           <Grid container>    
-              <Grid item xs={ 12 } sm={ 6 }>
+
+              <Grid item xs={ 12 } sm={ 8 }>
+                    <CardHeader 
+                      title={ `Cart` }
+                      subheader={ `New Deal... 2 for 1 Apples & 3 for 2 Oranges` }
+                    />
+                      <div className={ clsx( classes.content ) }>
+                        <Typography variant={ `body1` } gutterBottom>
+                          { apples } apples, 
+                          so you get { freeApples } FREE!
+                        </Typography> 
+
+                        <Typography variant={ `body1` } gutterBottom>
+                          { oranges } oranges
+                          so you get { freeOranges } FREE!
+                        </Typography> 
+                      </div>
+                      <div className={ clsx( classes.padded ) }>
+                        <Typography variant={ `h6` }>
+                          { `Total ${ readablePrice }` }
+                        </Typography>
+                      </div>
+
+              </Grid>  
+
+
+              <Grid item xs={ 12 } sm={ 4 }>
                 <div className={ clsx( classes.shop ) }>
 
                   <List>
@@ -66,8 +94,8 @@ export function Cart() {
                         <Avatar src={ `jpg/apples.jpg` }/>
                       </ListItemAvatar>
                       <ListItemText 
-                        primary={ `60p` }
-                        secondary={ `Add an Apple to the cart` }
+                        primary={ `1 Apple 60p` }
+                        secondary={ `Add an Apple to you cart` }
                       />
                     </ListItem>
 
@@ -78,8 +106,8 @@ export function Cart() {
                         <Avatar src={ `jpg/oranges.jpg` } />
                       </ListItemAvatar>
                       <ListItemText 
-                        primary={ `25p` }
-                        secondary={ `Add an Orange to the cart` }
+                        primary={ `1 Orange 25p` }
+                        secondary={ `Add an Orange to your cart` }
                       />
                     </ListItem>
 
@@ -88,34 +116,7 @@ export function Cart() {
                 </div>
               </Grid>
 
-              <Grid item xs={ 12 } sm={ 6 }>
-                <div className={ clsx( classes.totals ) }>
-                  
-                    <CardHeader 
-                      title={ `Cart` }
-                      subheader={ `${totalItems} items` }
-                    />
 
-                    <CardContent>
-                      <Typography variant={ `h6` }>
-                        { !totalItems ? `Empty.` : `Total ${ readablePrice }` }
-                      </Typography> 
-                    </CardContent>
-
-
-                </div>
-              </Grid>  
           </Grid>
         </div>
 }
-
-/*
-                    <CardActions>
-                      <Button 
-                        variant={ `contained` }
-                        color={ `primary` }
-                      >
-                        checkout
-                      </Button>
-                      </CardActions>
-*/

@@ -36,11 +36,13 @@ export const cartSlice = createSlice({
         oranges: 0,
         freeOranges: 0,
       }
+      
       for ( let i = 0; i < items.length; i ++){
         const item = items[i]
         if ( item === `apple` ) cart.apples += 1
         if ( item === `orange` ) cart.oranges += 1
       }
+
       let freeApples = 0
       let numToofers = cart.apples/2
       if (numToofers >= 1 ) freeApples = Math.floor(numToofers)
@@ -53,7 +55,7 @@ export const cartSlice = createSlice({
 
       let totalPense = 0
       totalPense += (cart.apples - freeApples) * 60
-      totalPense += (cart.oranges - freeOranges) * 60
+      totalPense += (cart.oranges - freeOranges) * 25
 
       cart.totalPense = totalPense
 

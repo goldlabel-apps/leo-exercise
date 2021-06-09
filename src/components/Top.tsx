@@ -33,7 +33,7 @@ export default function Top() {
               <Typography 
                 variant="h6" 
                 className={classes.title}>
-                LEO Exercise (Step 1)
+                LEO Exercise (Step 2)
               </Typography>
             </Toolbar>
           </AppBar>

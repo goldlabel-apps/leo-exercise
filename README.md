@@ -96,4 +96,57 @@ All that remains is to connect these two concerns together to produce a frontend
 
 ## Step 2: Deals
 
-If we've done Step 1 well, this should take very little time
+> New Deal... 2 for 1 Apples & 3 for 2 Oranges
+
+If we've done Step 1 well, this should take very little time. Basically we're going to add a bit of maths to the total number of apples and oranges we find in the array. We'll refactor the reducer to recalculate the price according to the new deals. Our method is to work out the number of free oranges there are according to the deals, subtract that from number from the total oranges and multiply that new number by the price. Because we have a good pattern in the redux, it's easy to consume these useful data in the React component 
+
+![screenshot](./public/png/step2.png) 
+
+**[cartSlice.ts](./src/features/cart/cartSlice.ts) line 26**
+
+```javascript
+export const cartSlice = createSlice({
+  name: 'cart',
+  initialState,
+  reducers: {
+    addItem: (state, action: PayloadAction<string>) => {
+      state.items = [...state.items, action.payload]
+      const items = state.items
+      const cart = {
+        totalPense: 0,
+        apples: 0,
+        freeApples: 0,
+        oranges: 0,
+        freeOranges: 0,
+      }
+      
+      for ( let i = 0; i < items.length; i ++){
+        const item = items[i]
+        if ( item === `apple` ) cart.apples += 1
+        if ( item === `orange` ) cart.oranges += 1
+      }
+
+      let freeApples = 0
+      let numToofers = cart.apples/2
+      if (numToofers >= 1 ) freeApples = Math.floor(numToofers)
+      cart.freeApples = freeApples
+    
+      let freeOranges = 0
+      let numThreefers = cart.oranges/3
+      if (numThreefers >= 1 ) freeOranges = Math.floor(numThreefers)
+      cart.freeOranges = freeOranges
+
+      let totalPense = 0
+      totalPense += (cart.apples - freeApples) * 60
+      totalPense += (cart.oranges - freeOranges) * 60
+
+      cart.totalPense = totalPense
+
+      state.cart = { ...state.cart, ...cart }
+    }
+  }
+})
+```
+
+
+
