@@ -14,8 +14,11 @@ export interface CartState {
 const initialState: CartState = {
   items: [],
   cart: {
-    totalItems: 0,
     totalPense: 0,
+    apples: 0,
+    freeApples: 0,
+    oranges: 0,
+    freeOranges: 0,
   },
 }
 
@@ -25,26 +28,35 @@ export const cartSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<string>) => {
       state.items = [...state.items, action.payload]
-      // Translate into useful object
       const items = state.items
       const cart = {
-        totalItems: 0,
         totalPense: 0,
         apples: 0,
+        freeApples: 0,
         oranges: 0,
+        freeOranges: 0,
       }
       for ( let i = 0; i < items.length; i ++){
         const item = items[i]
-        if ( item === `apple` ) {
-          cart.apples += 1
-          cart.totalPense += 60
-        }
-        if ( item === `orange` ) {
-          cart.oranges += 1
-          cart.totalPense += 25
-        }
-        cart.totalItems += 1
+        if ( item === `apple` ) cart.apples += 1
+        if ( item === `orange` ) cart.oranges += 1
       }
+      let freeApples = 0
+      let numToofers = cart.apples/2
+      if (numToofers >= 1 ) freeApples = Math.floor(numToofers)
+      cart.freeApples = freeApples
+    
+      let freeOranges = 0
+      let numThreefers = cart.oranges/3
+      if (numThreefers >= 1 ) freeOranges = Math.floor(numThreefers)
+      cart.freeOranges = freeOranges
+
+      let totalPense = 0
+      totalPense += (cart.apples - freeApples) * 60
+      totalPense += (cart.oranges - freeOranges) * 60
+
+      cart.totalPense = totalPense
+
       state.cart = { ...state.cart, ...cart }
     }
   }
