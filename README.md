@@ -1,7 +1,7 @@
 
 # Exercise One
 
-TypeScript, React, Redux
+> TypeScript, React, Redux
 
 #### Clone, Install & Run
 
