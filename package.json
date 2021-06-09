@@ -1,17 +1,18 @@
 {
   "version": "0.0.1",
   "name": "leo-exercise",
-  "description": "Maintain useful, up to date documentation for internal and external use",
-  "repository": "https://github.com/listingslab-software/docsify",
+  "description": "Pre-interview Exercise for Developer Candidates",
+  "repository": "https://github.com/listingslab-software/leo-exercise",
   "author": "listingslab <listingslab@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
