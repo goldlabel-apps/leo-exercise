@@ -1,10 +1,7 @@
 
-# LEO Pre-interview Exercise
+# Exercise One
 
-> Pre-interview Exercise for Developer Candidates
-
-- [Instructions](./public/pdf/instructions.pdf) 
-- [OSM Kanban Board](https://github.com/orgs/listingslab-software/projects/14?fullscreen=true)
+TypeScript, React, Redux
 
 #### Clone, Install & Run
 
@@ -141,7 +138,7 @@ export const cartSlice = createSlice({
 
       let totalPense = 0
       totalPense += (cart.apples - freeApples) * 60
-      totalPense += (cart.oranges - freeOranges) * 60
+      totalPense += (cart.oranges - freeOranges) * 25
 
       cart.totalPense = totalPense
 
