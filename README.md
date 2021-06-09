@@ -1,14 +1,14 @@
 
 # LEO Pre-interview Exercise
 
-Pre-interview Exercise for Developer Candidates
+> Pre-interview Exercise for Developer Candidates
 
 - [Instructions](./public/pdf/instructions.pdf) 
 - [OSM Kanban Board](https://github.com/orgs/listingslab-software/projects/14?fullscreen=true)
 
-#### Install & Run
+#### Clone, Install & Run
 
-Clone the repository, install dependencies & start dev server. Default browser opens to [localhost:3000](http://localhost:3000). Once you have setup dev you can checkout the repo at any commit or tag
+Clone the repository, install dependencies & start dev server. Browser will open to [localhost:3000](http://localhost:3000). Once you have setup dev you can checkout the repo at any point
 
 ```bash
 cd <working-dir>
@@ -16,9 +16,10 @@ git clone https://github.com/listingslab-software/leo-exercise.git
 yarn && yarn start
 ```
 
-## Tech Stack
+## Setting up the project
 
-Before bootstrapping the app I consider the simplest possible solution to meet the requirement. Arguably a Shopping Cart needs something like Redux to manage state. The best and easiest to use implementation I've come across is [redux-toolkit](https://redux-toolkit.js.org). Bootstrapping React is easy with [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html). If we use the template `redux-typescript`, it gives us the techstack we want
+Before bootstrapping the app I consider the simplest possible solution to meet the requirement. Arguably a Shopping Cart needs something like Redux to manage state. The best and easiest to use implementation I've come across is [redux-toolkit](https://redux-toolkit.js.org). Bootstrapping React is easy with [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html). If we use the template `redux-typescript`, it gives us the techstack we want; 
+
 - React
 	- TypeScript
 	- Redux
@@ -32,13 +33,11 @@ npx create-react-app leo-exercise --template redux-typescript
 
 ## Step 1: Shopping cart 
 
-Next job is to create our app from the template provided. Along the way I remove any extraneous files the project doesn't need. At this point we will also add [Material UI](https://material-ui.com) to the project because we'll need some User Interface componenets. Now we're set up we can concentrate on just 2 files. `Cart.tsx` handles the frontend and `cartSlice.ts` the logic
+Next job is to create an app from the template. Along the way I removed extraneous files the project doesn't need. I also added [Material UI](https://material-ui.com) to the project because we'll need some UI. Now we can concentrate on just 2 files. `Cart.tsx` which handles the frontend and `cartSlice.ts` the logic
 
 ### [Cart.tsx](./src/features/cart/Cart.tsx)
 
-Renders the cart and handles UI interaction and updates from Redux
-
-_eg_
+Renders the cart and handles UI interaction and updates from Redux. It's a functional component all about presentation and handles updates from the redux store quickly
 
 ```javascript
 
@@ -51,15 +50,19 @@ _eg_
   const dispatch = useAppDispatch()
 
   return <Button onClick={() => dispatch( addItem( 'apple' ) )} >
-    Add to Cart
-  </Button>
+            Add to Cart
+          </Button>
+
+          <Typography variant={ `body1` } gutterBottom>
+            { apples } apples, 
+            so you get { freeApples } FREE!
+          </Typography>
 
 ```
 
 ### [cartSlice.ts](./src/features/cart/cartSlice.ts)
 
-
-Here we setup the function for adding an item to the cart. Because this is place, we add our transformer code here too. This transforms the simple array of strings into an object called `cart` which the Cart.tsx component can more easily consume
+This is the reducer etc. Here we setup the function for adding an items to the cart. We also add our transformer code here too. We transform the simple array of strings into an object called `cart` which the Cart.tsx component can more easily consume
 
 ```javascript
 export const cartSlice = createSlice({
@@ -92,13 +95,13 @@ export const cartSlice = createSlice({
 
 ![screenshot](./public/png/step1.png) 
 
-All that remains is to connect these two concerns together to produce a frontend which meets the requirement. This concludes Step 1, so we commit, push, tag and move on to Step 2
+This concludes Step 1, so we commit, push, tag and move on to Step 2
 
 ## Step 2: Deals
 
 > New Deal... 2 for 1 Apples & 3 for 2 Oranges
 
-If we've done Step 1 well, this should take very little time. Basically we're going to add a bit of maths to the total number of apples and oranges we find in the array. We'll refactor the reducer to recalculate the price according to the new deals. Our method is to work out the number of free oranges there are according to the deals, subtract that from number from the total oranges and multiply that new number by the price. Because we have a good pattern in the redux, it's easy to consume these useful data in the React component 
+If we've done Step 1 properly, this should take very little time. Basically we're going to refactor the reducer to add a bit of maths. We'll recalculate the price according to the new deals. Our approach is to work out the number of free oranges there are according to the deal rules, subtract that from number from the total oranges in the cart and multiply that new number by the price. With a good redux pattern, it's easy to consume these useful data in the React component 
 
 ![screenshot](./public/png/step2.png) 
 
@@ -148,5 +151,4 @@ export const cartSlice = createSlice({
 })
 ```
 
-
-
+This concludes Step 2, so we commit, push, tag and submit
